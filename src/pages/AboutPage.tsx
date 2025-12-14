@@ -1,12 +1,12 @@
 import { Layout } from "@/components/layout/Layout";
-import Home from "./Home";
+import About from "./About";
 
-const Index = () => {
+const AboutPage = () => {
   return (
     <Layout>
-      <Home />
+      <About />
     </Layout>
   );
 };
 
-export default Index;
+export default AboutPage;
