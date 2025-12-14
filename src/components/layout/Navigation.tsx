@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, Users, Mail } from "lucide-react";
+import { Menu, X, Home, Users, Mail, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/logo.png";
+import { useAuth } from "@/hooks/useAuth";
+import { useSiteLogo } from "@/hooks/useSiteLogo";
 
 const navItems = [
   { name: "Home", path: "/", icon: Home },
@@ -13,6 +14,8 @@ const navItems = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { isAdmin } = useAuth();
+  const { logoUrl } = useSiteLogo();
 
   return (
     <>
@@ -52,7 +55,7 @@ export function Navigation() {
         {/* Logo Section */}
         <div className="p-6 border-b border-sidebar-border">
           <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
-            <img src={logo} alt="LIT Productions Logo" className="w-12 h-12 object-contain" />
+            <img src={logoUrl} alt="LIT Productions Logo" className="w-12 h-12 object-contain" />
             <div>
               <h2 className="text-lg font-bold text-primary-foreground">LIT</h2>
               <p className="text-xs text-sidebar-foreground tracking-widest">PRODUCTIONS</p>
@@ -86,6 +89,28 @@ export function Navigation() {
                 </li>
               );
             })}
+
+            {/* Admin Link */}
+            {isAdmin && (
+              <li>
+                <Link
+                  to="/admin"
+                  onClick={() => setIsOpen(false)}
+                  className={cn(
+                    "flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-300 group",
+                    location.pathname === "/admin"
+                      ? "gradient-royal text-primary-foreground shadow-lg"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-primary-foreground"
+                  )}
+                >
+                  <Settings className={cn(
+                    "h-5 w-5 transition-transform group-hover:scale-110",
+                    location.pathname === "/admin" && "text-primary-foreground"
+                  )} />
+                  <span className="font-medium">Admin</span>
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
 

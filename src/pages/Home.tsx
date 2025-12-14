@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Globe, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.png";
+import { useSiteLogo } from "@/hooks/useSiteLogo";
 
 const features = [
   {
@@ -22,6 +22,8 @@ const features = [
 ];
 
 export default function Home() {
+  const { logoUrl } = useSiteLogo();
+
   return (
     <>
       {/* SEO */}
@@ -37,7 +39,7 @@ export default function Home() {
           {/* Logo */}
           <div className="animate-fade-in mb-8">
             <img
-              src={logo}
+              src={logoUrl}
               alt="LIT Productions Logo"
               className="w-32 h-32 md:w-40 md:h-40 mx-auto animate-float"
             />

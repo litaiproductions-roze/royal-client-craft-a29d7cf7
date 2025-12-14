@@ -1,35 +1,30 @@
 import { Link } from "react-router-dom";
 import { Target, Eye, Heart, Award, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
-const values = [
-  {
-    icon: Target,
-    title: "Mission",
-    description:
-      "To empower individuals and businesses with stunning, high-performance websites that drive success and leave lasting impressions in the digital world.",
-  },
-  {
-    icon: Eye,
-    title: "Vision",
-    description:
-      "To become the go-to premium web design partner for brands seeking excellence, innovation, and a truly personalized digital experience.",
-  },
-  {
-    icon: Heart,
-    title: "Passion",
-    description:
-      "We pour our hearts into every project, treating each website as a masterpiece that reflects both our client's vision and our commitment to excellence.",
-  },
-  {
-    icon: Award,
-    title: "Excellence",
-    description:
-      "We never settle for ordinary. Every line of code, every design element, and every interaction is crafted to exceed expectations.",
-  },
-];
+const valueIcons = {
+  about_mission: Target,
+  about_vision: Eye,
+  about_passion: Heart,
+  about_excellence: Award,
+};
 
 export default function About() {
+  const { content, loading } = useSiteContent();
+
+  const heroTitle = content.about_hero_title?.title || "About LIT Productions";
+  const heroTagline = content.about_hero_title?.content || "Where passion meets precision.";
+  const storyTitle = content.about_story?.title || "Our Story";
+  const storyContent = content.about_story?.content || "";
+
+  const values = [
+    { key: "about_mission", icon: Target },
+    { key: "about_vision", icon: Eye },
+    { key: "about_passion", icon: Heart },
+    { key: "about_excellence", icon: Award },
+  ];
+
   return (
     <>
       {/* SEO */}
@@ -43,10 +38,16 @@ export default function About() {
       <section className="gradient-royal py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="animate-fade-in text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6">
-            About <span className="text-gradient-gold">LIT Productions</span>
+            {heroTitle.includes("LIT") ? (
+              <>
+                About <span className="text-gradient-gold">LIT Productions</span>
+              </>
+            ) : (
+              heroTitle
+            )}
           </h1>
           <p className="animate-fade-in-delay text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-            Where passion meets precision. We're not just web developers — we're digital craftsmen dedicated to building your success.
+            {heroTagline}
           </p>
         </div>
       </section>
@@ -57,25 +58,12 @@ export default function About() {
           <div className="animate-fade-in bg-card rounded-2xl p-8 md:p-12 shadow-card border border-border">
             <h2 className="text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
               <span className="w-2 h-8 gradient-royal rounded-full" />
-              Our Story
+              {storyTitle}
             </h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                LIT Productions was born from a simple belief: every brand deserves a website that truly shines. 
-                What started as a passion project has grown into a dedicated studio focused on delivering 
-                premium digital experiences.
-              </p>
-              <p>
-                We noticed that too many businesses settle for template-based, cookie-cutter websites 
-                that fail to capture their unique identity. That's where we come in. We take the time 
-                to understand your story, your goals, and your vision — then we bring it all to life 
-                with pixel-perfect precision.
-              </p>
-              <p>
-                From personal portfolios and startup landing pages to full-scale enterprise solutions, 
-                we approach every project with the same level of care and dedication. Your success 
-                is our success, and we won't rest until your website exceeds expectations.
-              </p>
+              {storyContent.split('\n\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
           </div>
         </div>
@@ -92,23 +80,29 @@ export default function About() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((value, index) => (
-              <div
-                key={value.title}
-                className="group p-8 rounded-2xl bg-card border border-border shadow-card hover:shadow-xl transition-all duration-300"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="flex items-start gap-5">
-                  <div className="w-14 h-14 rounded-xl gradient-royal flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <value.icon className="h-7 w-7 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-3">{value.title}</h3>
-                    <p className="text-muted-foreground">{value.description}</p>
+            {values.map((value, index) => {
+              const data = content[value.key];
+              const Icon = value.icon;
+              return (
+                <div
+                  key={value.key}
+                  className="group p-8 rounded-2xl bg-card border border-border shadow-card hover:shadow-xl transition-all duration-300"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="flex items-start gap-5">
+                    <div className="w-14 h-14 rounded-xl gradient-royal flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="h-7 w-7 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-foreground mb-3">
+                        {data?.title || value.key.replace("about_", "").charAt(0).toUpperCase() + value.key.replace("about_", "").slice(1)}
+                      </h3>
+                      <p className="text-muted-foreground">{data?.content || ""}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
