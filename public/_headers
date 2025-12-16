@@ -1,8 +1,32 @@
 /*
+  # Prevent clickjacking
   X-Frame-Options: DENY
+  
+  # Prevent MIME type sniffing
   X-Content-Type-Options: nosniff
+  
+  # XSS Protection for older browsers
+  X-XSS-Protection: 1; mode=block
+  
+  # Referrer Policy - strict for privacy
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+  
+  # Permissions Policy - disable unnecessary features
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=(), browsing-topics=()
+  
+  # Content Security Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
+  
+  # HSTS - Force HTTPS
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  
+  # Block AI crawlers and scrapers
+  X-Robots-Tag: noai, noimageai, nosnippet
+  
+  # Prevent content embedding
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

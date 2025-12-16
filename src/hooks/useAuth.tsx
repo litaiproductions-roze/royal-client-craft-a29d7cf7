@@ -59,13 +59,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       
       if (error) {
-        console.error("Error checking admin role:", error);
+        // Don't log sensitive error details in production
         setIsAdmin(false);
       } else {
         setIsAdmin(data === true);
       }
-    } catch (err) {
-      console.error("Error checking admin role:", err);
+    } catch {
       setIsAdmin(false);
     }
   };
