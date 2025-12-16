@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Send, Mail, MessageSquare, User, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,10 +6,67 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+// Input validation schema
+const contactSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters"),
+  email: z.string()
+    .trim()
+    .email("Invalid email address")
+    .max(255, "Email must be less than 255 characters"),
+  company: z.string()
+    .trim()
+    .max(200, "Company name must be less than 200 characters")
+    .optional()
+    .or(z.literal("")),
+  message: z.string()
+    .trim()
+    .min(10, "Message must be at least 10 characters")
+    .max(5000, "Message must be less than 5000 characters"),
+});
+
+// Rate limiting
+const RATE_LIMIT_KEY = "contact_form_submissions";
+const RATE_LIMIT_WINDOW = 60000; // 1 minute
+const RATE_LIMIT_MAX = 3;
+
+function checkClientRateLimit(): boolean {
+  try {
+    const stored = sessionStorage.getItem(RATE_LIMIT_KEY);
+    const now = Date.now();
+    
+    if (!stored) {
+      sessionStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count: 1, timestamp: now }));
+      return false;
+    }
+    
+    const record = JSON.parse(stored);
+    if (now - record.timestamp > RATE_LIMIT_WINDOW) {
+      sessionStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count: 1, timestamp: now }));
+      return false;
+    }
+    
+    if (record.count >= RATE_LIMIT_MAX) {
+      return true;
+    }
+    
+    record.count++;
+    sessionStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(record));
+    return false;
+  } catch {
+    return false;
+  }
+}
 
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,19 +77,49 @@ export default function Contact() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+    // Clear error when user types
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
+
+    // Client-side rate limiting
+    if (checkClientRateLimit()) {
+      toast({
+        title: "Too many requests",
+        description: "Please wait a moment before submitting again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate with zod
+    const result = contactSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          fieldErrors[err.path[0] as string] = err.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData,
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: result.data,
       });
 
       if (error) throw error;
@@ -44,8 +131,8 @@ export default function Contact() {
       });
 
       setFormData({ name: "", email: "", company: "", message: "" });
-    } catch (error: any) {
-      console.error("Error sending message:", error);
+      formRef.current?.reset();
+    } catch {
       toast({
         title: "Error sending message",
         description: "Please try again later or contact us directly.",
@@ -82,8 +169,10 @@ export default function Contact() {
       <section className="py-20 px-6 bg-background">
         <div className="max-w-2xl mx-auto">
           <form
+            ref={formRef}
             onSubmit={handleSubmit}
             className="animate-fade-in bg-card rounded-2xl p-8 md:p-12 shadow-card border border-border"
+            autoComplete="off"
           >
             <h2 className="text-2xl font-bold text-foreground mb-8 flex items-center gap-3">
               <MessageSquare className="h-6 w-6 text-primary" />
@@ -102,11 +191,14 @@ export default function Contact() {
                   name="name"
                   type="text"
                   required
+                  maxLength={100}
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="h-12 bg-background border-border focus:border-primary"
+                  className={`h-12 bg-background border-border focus:border-primary ${errors.name ? "border-destructive" : ""}`}
+                  autoComplete="off"
                 />
+                {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
               </div>
 
               {/* Email Field */}
@@ -120,11 +212,14 @@ export default function Contact() {
                   name="email"
                   type="email"
                   required
+                  maxLength={255}
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="john@example.com"
-                  className="h-12 bg-background border-border focus:border-primary"
+                  className={`h-12 bg-background border-border focus:border-primary ${errors.email ? "border-destructive" : ""}`}
+                  autoComplete="off"
                 />
+                {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
               </div>
 
               {/* Company Field */}
@@ -137,11 +232,14 @@ export default function Contact() {
                   id="company"
                   name="company"
                   type="text"
+                  maxLength={200}
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Your Company"
-                  className="h-12 bg-background border-border focus:border-primary"
+                  className={`h-12 bg-background border-border focus:border-primary ${errors.company ? "border-destructive" : ""}`}
+                  autoComplete="off"
                 />
+                {errors.company && <p className="text-sm text-destructive">{errors.company}</p>}
               </div>
 
               {/* Message Field */}
@@ -154,12 +252,14 @@ export default function Contact() {
                   id="message"
                   name="message"
                   required
+                  maxLength={5000}
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell us about your project, goals, and any specific requirements..."
                   rows={6}
-                  className="bg-background border-border focus:border-primary resize-none"
+                  className={`bg-background border-border focus:border-primary resize-none ${errors.message ? "border-destructive" : ""}`}
                 />
+                {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
               </div>
 
               {/* Submit Button */}
@@ -186,6 +286,7 @@ export default function Contact() {
           </form>
         </div>
       </section>
+
 
       {/* Info Section */}
       <section className="py-16 px-6 bg-secondary/30">

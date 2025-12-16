@@ -5,6 +5,7 @@ const footerLinks = [
   { name: "Home", path: "/" },
   { name: "About Us", path: "/about" },
   { name: "Contact Us", path: "/contact" },
+  { name: "Privacy Policy", path: "/privacy" },
 ];
 
 export function Footer() {
@@ -53,9 +54,12 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-sidebar-border text-center">
+        <div className="mt-12 pt-6 border-t border-sidebar-border text-center space-y-2">
           <p className="text-xs text-sidebar-foreground/50">
-            © {new Date().getFullYear()} LIT Productions. All rights reserved. | Premium Web Solutions
+            © {new Date().getFullYear()} LIT Productions. All rights reserved.
+          </p>
+          <p className="text-xs text-sidebar-foreground/40">
+            We do not collect IP addresses or sell your data. Your privacy is protected.
           </p>
         </div>
       </div>
