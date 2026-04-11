@@ -97,7 +97,7 @@ export default {
         "slide-in-left": "slide-in-left 0.3s ease-out",
         "slide-out-left": "slide-out-left 0.3s ease-out",
         "page-transition-logo": "page-transition-logo 0.6s ease-out forwards",
-        "page-transition-bar": "page-transition-bar 1.8s ease-in-out forwards",
+        "page-transition-bar": "page-transition-bar 0.8s ease-in-out forwards",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],

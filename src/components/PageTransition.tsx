@@ -24,7 +24,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
     const timer = setTimeout(() => {
       setShowTransition(false);
       setShowContent(true);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [location.pathname]);
