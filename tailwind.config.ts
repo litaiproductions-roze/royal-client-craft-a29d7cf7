@@ -80,12 +80,24 @@ export default {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-100%)" },
         },
+        "page-transition-logo": {
+          "0%": { opacity: "0", transform: "scale(0.7)" },
+          "30%": { opacity: "1", transform: "scale(1.05)" },
+          "50%": { opacity: "1", transform: "scale(1)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "page-transition-bar": {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "slide-in-left": "slide-in-left 0.3s ease-out",
         "slide-out-left": "slide-out-left 0.3s ease-out",
+        "page-transition-logo": "page-transition-logo 0.6s ease-out forwards",
+        "page-transition-bar": "page-transition-bar 1.8s ease-in-out forwards",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
