@@ -23,7 +23,7 @@ export function Navigation() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-4 left-4 z-50 lg:hidden p-3 rounded-lg bg-sidebar gradient-royal text-primary-foreground shadow-lg"
+        className="fixed top-4 left-4 z-50 md:hidden p-3 rounded-lg gradient-royal text-primary-foreground shadow-lg glow-purple"
         aria-label="Open menu"
       >
         <Menu className="h-6 w-6" />
@@ -40,14 +40,14 @@ export function Navigation() {
       {/* Sidebar Navigation */}
       <aside
         className={cn(
-          "fixed left-0 top-0 h-full w-72 gradient-dark z-50 flex flex-col transition-transform duration-300 lg:translate-x-0",
-          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+          "fixed left-0 top-0 h-full w-72 gradient-dark z-50 flex flex-col transition-transform duration-300 md:translate-x-0",
+          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
       >
         {/* Close button - mobile only */}
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute top-4 right-4 p-2 text-sidebar-foreground hover:text-primary-foreground lg:hidden"
+          className="absolute top-4 right-4 p-2 text-sidebar-foreground hover:text-primary-foreground md:hidden"
           aria-label="Close menu"
         >
           <X className="h-6 w-6" />
