@@ -20,30 +20,32 @@ import { PageTransition } from "./components/PageTransition";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <PageTransition>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </PageTransition>
-        </BrowserRouter>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <PageTransition>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/portfolio" element={<PortfolioPage />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/privacy" element={<PrivacyPolicy />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </PageTransition>
+          </BrowserRouter>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;
