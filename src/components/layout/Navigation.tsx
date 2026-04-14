@@ -42,26 +42,26 @@ export function Navigation() {
       {/* Sidebar Navigation */}
       <aside
         className={cn(
-          "fixed left-0 top-0 h-full w-72 gradient-dark z-50 flex flex-col transition-transform duration-300 md:translate-x-0",
+          "fixed left-0 top-0 h-full w-72 bg-card border-r border-border z-50 flex flex-col transition-transform duration-300 md:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
       >
         {/* Close button - mobile only */}
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute top-4 right-4 p-2 text-sidebar-foreground hover:text-primary-foreground md:hidden"
+          className="absolute top-4 right-4 p-2 text-muted-foreground hover:text-foreground md:hidden"
           aria-label="Close menu"
         >
           <X className="h-6 w-6" />
         </button>
 
         {/* Logo Section */}
-        <div className="p-6 border-b border-sidebar-border">
+        <div className="p-6 border-b border-border">
           <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
             <img src={logoUrl} alt="LIT Productions Logo" className="w-12 h-12 object-contain" />
             <div>
-              <h2 className="text-lg font-bold text-primary-foreground">LIT</h2>
-              <p className="text-xs text-sidebar-foreground tracking-widest">PRODUCTIONS</p>
+              <h2 className="text-lg font-bold text-foreground">LIT</h2>
+              <p className="text-xs text-muted-foreground tracking-widest">PRODUCTIONS</p>
             </div>
           </Link>
         </div>
@@ -80,12 +80,13 @@ export function Navigation() {
                       "flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-300 group",
                       isActive
                         ? "gradient-royal text-primary-foreground shadow-lg"
-                        : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-primary-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground"
                     )}
                   >
                     <item.icon className={cn(
                       "h-5 w-5 transition-transform group-hover:scale-110",
-                      isActive && "text-primary-foreground"
+                      isActive && "text-primary-foreground",
+                      !isActive && "text-muted-foreground"
                     )} />
                     <span className="font-medium">{item.name}</span>
                   </Link>
@@ -103,12 +104,12 @@ export function Navigation() {
                     "flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-300 group",
                     location.pathname === "/admin"
                       ? "gradient-royal text-primary-foreground shadow-lg"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-primary-foreground"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
                   )}
                 >
                   <Settings className={cn(
                     "h-5 w-5 transition-transform group-hover:scale-110",
-                    location.pathname === "/admin" && "text-primary-foreground"
+                    location.pathname === "/admin" ? "text-primary-foreground" : "text-muted-foreground"
                   )} />
                   <span className="font-medium">Admin</span>
                 </Link>
@@ -118,10 +119,10 @@ export function Navigation() {
         </nav>
 
         {/* Theme Toggle & Footer */}
-        <div className="p-6 border-t border-sidebar-border space-y-4">
+        <div className="p-6 border-t border-border space-y-4">
           <button
             onClick={toggleTheme}
-            className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sidebar-foreground hover:bg-sidebar-accent hover:text-primary-foreground transition-all duration-300 group"
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-muted-foreground hover:bg-accent hover:text-foreground transition-all duration-300 group"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? (
