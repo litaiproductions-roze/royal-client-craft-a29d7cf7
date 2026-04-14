@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, Users, Mail, Settings, Globe } from "lucide-react";
+import { Menu, X, Home, Users, Mail, Settings, Globe, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { useSiteLogo } from "@/hooks/useSiteLogo";
+import { useTheme } from "@/hooks/useTheme";
 
 const navItems = [
   { name: "Home", path: "/", icon: Home },
@@ -17,6 +18,7 @@ export function Navigation() {
   const location = useLocation();
   const { isAdmin } = useAuth();
   const { logoUrl } = useSiteLogo();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <>
@@ -115,8 +117,20 @@ export function Navigation() {
           </ul>
         </nav>
 
-        {/* Footer */}
-        <div className="p-6 border-t border-sidebar-border">
+        {/* Theme Toggle & Footer */}
+        <div className="p-6 border-t border-sidebar-border space-y-4">
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sidebar-foreground hover:bg-sidebar-accent hover:text-primary-foreground transition-all duration-300 group"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5 transition-transform group-hover:scale-110" />
+            ) : (
+              <Moon className="h-5 w-5 transition-transform group-hover:scale-110" />
+            )}
+            <span className="font-medium">{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+          </button>
           <p className="text-xs text-sidebar-foreground/60 text-center">
             © 2024 LIT Productions
           </p>
