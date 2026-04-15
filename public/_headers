@@ -23,10 +23,8 @@
   # Block AI crawlers and scrapers
   X-Robots-Tag: noai, noimageai, nosnippet
   
-  # Prevent content embedding
-  Cross-Origin-Embedder-Policy: require-corp
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Resource-Policy: same-origin
+  # Allow cross-origin resources (needed for external fonts, images, Supabase)
+  Cross-Origin-Resource-Policy: cross-origin
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
