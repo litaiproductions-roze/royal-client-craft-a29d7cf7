@@ -30,6 +30,7 @@ export default function ResetPassword() {
   const [ready, setReady] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<{ password?: string; confirmPassword?: string }>({});
+  const readyRef = useRef(false);
   
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -37,18 +38,24 @@ export default function ResetPassword() {
   useEffect(() => {
     let redirectTimeout: ReturnType<typeof setTimeout>;
 
+    const markReady = () => {
+      readyRef.current = true;
+      setReady(true);
+    };
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
-        setReady(true);
+        markReady();
       }
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        setReady(true);
+        markReady();
       } else {
+        // Give Supabase client extra time to process the hash fragment token
         redirectTimeout = setTimeout(() => {
-          if (!ready) {
+          if (!readyRef.current) {
             toast({
               title: "Invalid or Expired Link",
               description: "This password reset link is invalid or has expired. Please request a new one.",
@@ -56,7 +63,7 @@ export default function ResetPassword() {
             });
             navigate("/auth");
           }
-        }, 3000);
+        }, 5000);
       }
     });
 
