@@ -76,7 +76,7 @@ serve(async (req: Request) => {
 
     // Send the reset email via Supabase Auth
     const { error } = await supabaseAdmin.auth.resetPasswordForEmail(trimmedEmail, {
-      redirectTo: redirectUrl || `${supabaseUrl.replace('.supabase.co', '.lovable.app')}/reset-password`,
+      redirectTo: redirectUrl || "https://litaiproductions.lovable.app/reset-password",
     });
 
     if (error) {
