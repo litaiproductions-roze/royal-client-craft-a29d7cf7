@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock, ArrowLeft, CheckCircle } from "lucide-react";
+import { Lock, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const passwordField = z
@@ -28,10 +28,12 @@ export default function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [ready, setReady] = useState(false);
+  const [initializing, setInitializing] = useState(true);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<{ password?: string; confirmPassword?: string }>({});
   const readyRef = useRef(false);
-  
+  const [searchParams] = useSearchParams();
+
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -41,37 +43,63 @@ export default function ResetPassword() {
     const markReady = () => {
       readyRef.current = true;
       setReady(true);
+      setInitializing(false);
     };
 
+    const markFailed = () => {
+      if (!readyRef.current) {
+        setInitializing(false);
+        toast({
+          title: "Invalid or Expired Link",
+          description: "This password reset link is invalid or has expired. Please request a new one.",
+          variant: "destructive",
+        });
+        navigate("/auth");
+      }
+    };
+
+    // Listen for PASSWORD_RECOVERY event (fires after implicit grant or code exchange)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
         markReady();
       }
     });
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        markReady();
-      } else {
-        // Give Supabase client extra time to process the hash fragment token
-        redirectTimeout = setTimeout(() => {
-          if (!readyRef.current) {
-            toast({
-              title: "Invalid or Expired Link",
-              description: "This password reset link is invalid or has expired. Please request a new one.",
-              variant: "destructive",
-            });
-            navigate("/auth");
-          }
-        }, 5000);
-      }
-    });
+    // Handle PKCE flow: if there's a `code` query param, exchange it for a session
+    const code = searchParams.get("code");
+    if (code) {
+      supabase.auth.exchangeCodeForSession(code).then(({ data, error }) => {
+        if (error) {
+          console.error("Code exchange failed:", error.message);
+          markFailed();
+        } else if (data.session) {
+          // The onAuthStateChange should fire PASSWORD_RECOVERY,
+          // but mark ready as a fallback
+          setTimeout(() => {
+            if (!readyRef.current) markReady();
+          }, 1000);
+        }
+      });
+    } else {
+      // Implicit grant flow: tokens may be in the URL hash fragment
+      // Supabase client auto-processes hash on init
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          markReady();
+        } else {
+          // Wait for hash processing or PASSWORD_RECOVERY event
+          redirectTimeout = setTimeout(() => {
+            markFailed();
+          }, 6000);
+        }
+      });
+    }
 
     return () => {
       subscription.unsubscribe();
       clearTimeout(redirectTimeout);
     };
-  }, [navigate, toast]);
+  }, [navigate, toast, searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,6 +143,25 @@ export default function ResetPassword() {
       setLoading(false);
     }
   };
+
+  // Loading state while processing the reset token
+  if (initializing) {
+    return (
+      <div className="min-h-screen gradient-dark flex items-center justify-center px-6 py-12">
+        <div className="w-full max-w-md">
+          <div className="bg-card rounded-2xl p-8 shadow-card border border-border text-center">
+            <Loader2 className="h-12 w-12 text-primary mx-auto mb-4 animate-spin" />
+            <h1 className="text-xl font-bold text-foreground mb-2">
+              Verifying Reset Link
+            </h1>
+            <p className="text-muted-foreground">
+              Please wait while we verify your password reset link...
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (success) {
     return (
