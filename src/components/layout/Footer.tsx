@@ -34,8 +34,8 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <img src={logo} alt="LIT Productions" className="w-10 h-10 object-contain" />
               <div>
-                <h3 className="text-lg font-bold text-primary-foreground">LIT PRODUCTIONS</h3>
-                <p className="text-xs text-sidebar-foreground/60 tracking-wider">Building Digital Excellence</p>
+                <h3 className="text-lg font-bold text-white">LIT PRODUCTIONS</h3>
+                <p className="text-xs text-white/70 tracking-wider">Building Digital Excellence</p>
               </div>
             </div>
             {/* Social Media Icons */}
@@ -50,7 +50,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className={`text-sidebar-foreground/70 ${hoverClass} transition-colors`}
+                    className={`text-white/80 ${hoverClass} transition-colors`}
                   >
                     <Icon className="h-5 w-5" />
                   </a>
@@ -61,13 +61,13 @@ export function Footer() {
 
           {/* Navigation */}
           <div className="flex flex-col items-center gap-4">
-            <h4 className="text-sm font-semibold text-primary-foreground uppercase tracking-wider">Quick Links</h4>
-            <ul className="flex gap-6">
+            <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Quick Links</h4>
+            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2">
               {footerLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-sm text-sidebar-foreground hover:text-primary-foreground transition-colors"
+                    className="text-sm text-white/90 hover:text-accent transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -78,7 +78,7 @@ export function Footer() {
 
           {/* Contact */}
           <div className="flex flex-col items-center md:items-end gap-2">
-            <p className="text-sm text-sidebar-foreground/80">Ready to build something amazing?</p>
+            <p className="text-sm text-white/85">Ready to build something amazing?</p>
             <Link
               to="/contact"
               className="text-accent hover:text-accent/80 font-semibold transition-colors"
@@ -89,11 +89,11 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-sidebar-border text-center space-y-2">
-          <p className="text-xs text-sidebar-foreground/50">
+        <div className="mt-12 pt-6 border-t border-white/15 text-center space-y-2">
+          <p className="text-xs text-white/70">
             © {new Date().getFullYear()} LIT Productions. All rights reserved.
           </p>
-          <p className="text-xs text-sidebar-foreground/40">
+          <p className="text-xs text-white/60">
             We do not collect IP addresses or sell your data. Your privacy is protected.
           </p>
         </div>
