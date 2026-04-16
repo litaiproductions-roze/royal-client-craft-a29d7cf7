@@ -20,7 +20,13 @@ export function Footer() {
   const { links } = useSocialLinks();
 
   return (
-    <footer className="gradient-dark text-sidebar-foreground">
+    <footer
+      className="text-white"
+      style={{
+        background:
+          "linear-gradient(180deg, hsl(270 50% 8%) 0%, hsl(270 40% 15%) 100%)",
+      }}
+    >
       <div className="container mx-auto px-6 py-12 lg:pl-80">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
           {/* Brand */}
