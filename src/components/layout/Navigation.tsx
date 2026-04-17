@@ -132,7 +132,7 @@ export function Navigation() {
             )}
             <span className="font-medium">{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
           </button>
-          <p className="text-xs text-sidebar-foreground/60 text-center">
+          <p className="text-center text-xs text-muted-foreground">
             © 2024 LIT Productions
           </p>
         </div>

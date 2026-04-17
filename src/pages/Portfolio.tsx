@@ -30,19 +30,17 @@ export default function Portfolio() {
       </section>
 
       {/* Portfolio Grid */}
-      <section className="py-12 px-6 bg-background min-h-[50vh]">
+      <section className="min-h-[50vh] bg-secondary/30 px-6 py-12">
         <div className="max-w-6xl mx-auto">
           {loading ? (
             <div className="flex items-center justify-center py-20">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
           ) : items.length === 0 ? (
-            <div className="text-center py-20">
-              <Globe className="h-16 w-16 mx-auto text-muted-foreground/50 mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                Portfolio coming soon
-              </h3>
-              <p className="text-muted-foreground">
+            <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card px-8 py-20 text-center shadow-card">
+              <Globe className="mx-auto mb-4 h-16 w-16 text-muted-foreground/60" />
+              <h3 className="mb-2 text-xl font-semibold text-foreground">Portfolio coming soon</h3>
+              <p className="text-base text-muted-foreground">
                 We're preparing our showcase. Check back soon!
               </p>
             </div>
