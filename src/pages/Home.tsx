@@ -108,10 +108,10 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 px-6 gradient-dark">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Transform Your Digital Presence?
           </h2>
-          <p className="text-lg text-sidebar-foreground mb-10 max-w-2xl mx-auto">
+          <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
             Let's create something extraordinary together. Get in touch and let us bring your vision to life.
           </p>
           <Button asChild variant="hero" size="lg">
