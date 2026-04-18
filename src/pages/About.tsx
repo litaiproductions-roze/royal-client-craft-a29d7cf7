@@ -154,10 +154,10 @@ export default function About() {
       {/* CTA Section */}
       <section className="py-20 px-6 gradient-dark">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-secondary-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground">
             Let's Build Something Amazing Together
           </h2>
-          <p className="text-lg mb-10 max-w-2xl mx-auto text-secondary-foreground">
+          <p className="text-lg mb-10 max-w-2xl mx-auto text-primary-foreground">
             Ready to take your digital presence to the next level? We'd love to hear about your project.
           </p>
           <Button asChild variant="hero" size="lg">
