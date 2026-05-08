@@ -273,6 +273,28 @@ export default function AdminDashboard() {
           </button>
         </div>
 
+        {/* Analytics Tab */}
+        {activeTab === "analytics" && (
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-primary" />
+              Site Activity & Analytics
+            </h2>
+            <AnalyticsDashboard />
+          </div>
+        )}
+
+        {/* Users Tab */}
+        {activeTab === "users" && (
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <UsersIcon className="h-5 w-5 text-primary" />
+              All Users
+            </h2>
+            <UsersTable />
+          </div>
+        )}
+
         {/* Content Tab */}
         {activeTab === "content" && (
           <div className="space-y-8">
