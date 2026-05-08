@@ -20,12 +20,16 @@ import {
   Mail,
   KeyRound,
   Globe,
-  Share2
+  Share2,
+  BarChart3,
+  Users as UsersIcon
 } from "lucide-react";
 import PortfolioManager from "@/components/admin/PortfolioManager";
 import ContactSubmissionsTable from "@/components/admin/ContactSubmissionsTable";
 import PasswordResetLogsTable from "@/components/admin/PasswordResetLogsTable";
 import SocialLinksManager from "@/components/admin/SocialLinksManager";
+import AnalyticsDashboard from "@/components/admin/AnalyticsDashboard";
+import UsersTable from "@/components/admin/UsersTable";
 import { Link } from "react-router-dom";
 
 export default function AdminDashboard() {
@@ -34,7 +38,7 @@ export default function AdminDashboard() {
   const { logoUrl, updateLogo } = useSiteLogo();
   const { toast } = useToast();
   
-  const [activeTab, setActiveTab] = useState<"content" | "logo" | "submissions" | "reset-logs" | "portfolio" | "social">("content");
+  const [activeTab, setActiveTab] = useState<"analytics" | "users" | "content" | "logo" | "submissions" | "reset-logs" | "portfolio" | "social">("analytics");
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -177,8 +181,52 @@ export default function AdminDashboard() {
       </header>
 
       <div className="max-w-6xl mx-auto px-6 py-8">
+        {/* Analytics Tab */}
+        {activeTab === "analytics" && (
+          <div className="bg-card rounded-xl p-6 border border-border">
+            <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-primary" />
+              Site Activity & Analytics
+            </h2>
+            <AnalyticsDashboard />
+          </div>
+        )}
+
+        {/* Users Tab */}
+        {activeTab === "users" && (
+          <div className="bg-card rounded-xl p-6 border border-border mt-0">
+            <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <UsersIcon className="h-5 w-5 text-primary" />
+              All Users
+            </h2>
+            <UsersTable />
+          </div>
+        )}
+
         {/* Tabs */}
-        <div className="flex gap-4 mb-8 border-b border-border">
+        <div className="flex flex-wrap gap-4 mb-8 border-b border-border">
+          <button
+            onClick={() => setActiveTab("analytics")}
+            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
+              activeTab === "analytics"
+                ? "text-primary border-b-2 border-primary"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <BarChart3 className="h-4 w-4" />
+            Analytics
+          </button>
+          <button
+            onClick={() => setActiveTab("users")}
+            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
+              activeTab === "users"
+                ? "text-primary border-b-2 border-primary"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <UsersIcon className="h-4 w-4" />
+            Users
+          </button>
           <button
             onClick={() => setActiveTab("content")}
             className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
