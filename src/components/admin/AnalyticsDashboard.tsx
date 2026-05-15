@@ -144,6 +144,7 @@ export default function AnalyticsDashboard() {
               <TableRow>
                 <TableHead>Time</TableHead>
                 <TableHead>Type</TableHead>
+                <TableHead>Page</TableHead>
                 <TableHead>Path / URL</TableHead>
                 <TableHead>Label</TableHead>
               </TableRow>
@@ -154,8 +155,9 @@ export default function AnalyticsDashboard() {
                   <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
                     {format(new Date(e.created_at), "MMM d, h:mm a")}
                   </TableCell>
-                  <TableCell className="text-xs">{e.event_type}</TableCell>
-                  <TableCell className="text-xs font-mono truncate max-w-[260px]">
+                  <TableCell className="text-xs capitalize">{e.event_type.replace("_", " ")}</TableCell>
+                  <TableCell className="text-xs font-medium">{getPageName(e.path)}</TableCell>
+                  <TableCell className="text-xs font-mono text-muted-foreground truncate max-w-[220px]">
                     {e.event_type === "page_view" ? e.path : e.url}
                   </TableCell>
                   <TableCell className="text-xs truncate max-w-[200px]">{e.label || "—"}</TableCell>
