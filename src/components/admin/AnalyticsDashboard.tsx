@@ -93,14 +93,16 @@ export default function AnalyticsDashboard() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Path</TableHead>
+                  <TableHead>Page</TableHead>
+                  <TableHead className="text-muted-foreground">Path</TableHead>
                   <TableHead className="text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {stats.topPages.map(([path, count]) => (
                   <TableRow key={path}>
-                    <TableCell className="font-mono text-xs truncate max-w-[260px]">{path}</TableCell>
+                    <TableCell className="font-medium">{getPageName(path)}</TableCell>
+                    <TableCell className="font-mono text-xs text-muted-foreground truncate max-w-[180px]">{path}</TableCell>
                     <TableCell className="text-right">{count}</TableCell>
                   </TableRow>
                 ))}
