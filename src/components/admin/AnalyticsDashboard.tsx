@@ -4,6 +4,7 @@ import { Loader2, Eye, MousePointerClick, Users as UsersIcon, TrendingUp } from 
 import { useMemo } from "react";
 import { format, subDays, startOfDay } from "date-fns";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { getPageName } from "@/lib/pageNames";
 
 interface AnalyticsEvent {
   id: string;
@@ -92,14 +93,16 @@ export default function AnalyticsDashboard() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Path</TableHead>
+                  <TableHead>Page</TableHead>
+                  <TableHead className="text-muted-foreground">Path</TableHead>
                   <TableHead className="text-right">Views</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {stats.topPages.map(([path, count]) => (
                   <TableRow key={path}>
-                    <TableCell className="font-mono text-xs truncate max-w-[260px]">{path}</TableCell>
+                    <TableCell className="font-medium">{getPageName(path)}</TableCell>
+                    <TableCell className="font-mono text-xs text-muted-foreground truncate max-w-[180px]">{path}</TableCell>
                     <TableCell className="text-right">{count}</TableCell>
                   </TableRow>
                 ))}
@@ -141,6 +144,7 @@ export default function AnalyticsDashboard() {
               <TableRow>
                 <TableHead>Time</TableHead>
                 <TableHead>Type</TableHead>
+                <TableHead>Page</TableHead>
                 <TableHead>Path / URL</TableHead>
                 <TableHead>Label</TableHead>
               </TableRow>
@@ -151,8 +155,9 @@ export default function AnalyticsDashboard() {
                   <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
                     {format(new Date(e.created_at), "MMM d, h:mm a")}
                   </TableCell>
-                  <TableCell className="text-xs">{e.event_type}</TableCell>
-                  <TableCell className="text-xs font-mono truncate max-w-[260px]">
+                  <TableCell className="text-xs capitalize">{e.event_type.replace("_", " ")}</TableCell>
+                  <TableCell className="text-xs font-medium">{getPageName(e.path)}</TableCell>
+                  <TableCell className="text-xs font-mono text-muted-foreground truncate max-w-[220px]">
                     {e.event_type === "page_view" ? e.path : e.url}
                   </TableCell>
                   <TableCell className="text-xs truncate max-w-[200px]">{e.label || "—"}</TableCell>
