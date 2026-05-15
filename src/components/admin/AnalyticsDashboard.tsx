@@ -4,6 +4,7 @@ import { Loader2, Eye, MousePointerClick, Users as UsersIcon, TrendingUp } from 
 import { useMemo } from "react";
 import { format, subDays, startOfDay } from "date-fns";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { getPageName } from "@/lib/pageNames";
 
 interface AnalyticsEvent {
   id: string;
