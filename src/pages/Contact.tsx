@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Send, Mail, MessageSquare, User, Building } from "lucide-react";
+import { Send, Mail, MessageSquare, User, Building, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,6 +18,11 @@ const contactSchema = z.object({
     .trim()
     .email("Invalid email address")
     .max(255, "Email must be less than 255 characters"),
+  phone: z.string()
+    .trim()
+    .max(50, "Phone number must be less than 50 characters")
+    .optional()
+    .or(z.literal("")),
   company: z.string()
     .trim()
     .max(200, "Company name must be less than 200 characters")
@@ -70,6 +75,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     company: "",
     message: "",
   });
@@ -140,7 +146,7 @@ export default function Contact() {
           "Thank you for reaching out. We'll get back to you within 24 hours.",
       });
 
-      setFormData({ name: "", email: "", company: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
       formRef.current?.reset();
     } catch {
       toast({
@@ -230,6 +236,26 @@ export default function Contact() {
                   autoComplete="off"
                 />
                 {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+              </div>
+
+              {/* Phone Field */}
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="text-foreground font-medium flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-muted-foreground" />
+                  Phone Number <span className="text-muted-foreground">(optional)</span>
+                </Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  maxLength={50}
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+1 (555) 123-4567"
+                  className={`h-12 bg-background border-border focus:border-primary ${errors.phone ? "border-destructive" : ""}`}
+                  autoComplete="off"
+                />
+                {errors.phone && <p className="text-sm text-destructive">{errors.phone}</p>}
               </div>
 
               {/* Company Field */}

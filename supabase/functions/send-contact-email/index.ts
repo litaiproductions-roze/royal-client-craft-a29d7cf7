@@ -13,6 +13,7 @@ const corsHeaders = {
 interface ContactFormRequest {
   name: string;
   email: string;
+  phone?: string;
   company?: string;
   message: string;
 }
@@ -83,7 +84,7 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    const { name, email, company, message }: ContactFormRequest = await req.json();
+    const { name, email, phone, company, message }: ContactFormRequest = await req.json();
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -109,7 +110,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Validate input lengths
-    if (name.length > 100 || message.length > 5000 || (company && company.length > 200)) {
+    if (name.length > 100 || message.length > 5000 || (company && company.length > 200) || (phone && phone.length > 50)) {
       return new Response(
         JSON.stringify({ error: "Input exceeds maximum length" }),
         {
@@ -122,6 +123,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Sanitize all inputs for XSS prevention
     const safeName = sanitizeHtml(name.trim());
     const safeEmail = email.trim().toLowerCase();
+    const safePhone = phone ? sanitizeHtml(phone.trim()) : null;
     const safeCompany = company ? sanitizeHtml(company.trim()) : null;
     const safeMessage = sanitizeHtml(message.trim());
 
@@ -162,6 +164,7 @@ const handler = async (req: Request): Promise<Response> => {
       .insert({
         name: name.trim(),
         email: safeEmail,
+        phone: safePhone,
         company: company?.trim() || null,
         message: message.trim(),
       });
@@ -185,6 +188,7 @@ const handler = async (req: Request): Promise<Response> => {
             <h2 style="color: #333; margin-top: 0;">Contact Details</h2>
             <p><strong>Name:</strong> ${safeName}</p>
             <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
+            ${safePhone ? `<p><strong>Phone:</strong> ${safePhone}</p>` : ''}
             ${safeCompany ? `<p><strong>Company:</strong> ${safeCompany}</p>` : ''}
           </div>
           
