@@ -29,26 +29,21 @@ function sanitizeHtml(str: string): string {
     .replace(/\n/g, "<br>");
 }
 
-// Rate limiting map (in production, use Redis or similar)
-const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
-const RATE_LIMIT_WINDOW = 60000; // 1 minute
-const RATE_LIMIT_MAX = 5; // 5 requests per minute
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const RATE_LIMIT_MAX = 5; // 5 per hour per IP
 
-function isRateLimited(identifier: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(identifier);
-  
-  if (!record || now - record.timestamp > RATE_LIMIT_WINDOW) {
-    rateLimitMap.set(identifier, { count: 1, timestamp: now });
-    return false;
-  }
-  
-  if (record.count >= RATE_LIMIT_MAX) {
-    return true;
-  }
-  
-  record.count++;
-  return false;
+async function hashIp(ip: string): Promise<string> {
+  const data = new TextEncoder().encode(ip + "|contact-form-salt");
+  const buf = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+function getClientIp(req: Request): string {
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0].trim();
+  return req.headers.get("cf-connecting-ip") || req.headers.get("x-real-ip") || "unknown";
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -69,20 +64,26 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    // Rate limiting by a hash of headers (not storing IP)
-    const userAgent = req.headers.get("user-agent") || "unknown";
-    const rateLimitKey = btoa(userAgent).slice(0, 16);
-    
-    if (isRateLimited(rateLimitKey)) {
-      console.log("Rate limit exceeded");
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Persistent IP-hashed rate limiting
+    const ipHash = await hashIp(getClientIp(req));
+    const windowStart = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
+    const { count: recentCount } = await supabaseAdmin
+      .from("contact_rate_limits")
+      .select("*", { count: "exact", head: true })
+      .eq("ip_hash", ipHash)
+      .gte("created_at", windowStart);
+
+    if ((recentCount ?? 0) >= RATE_LIMIT_MAX) {
       return new Response(
         JSON.stringify({ error: "Too many requests. Please try again later." }),
-        {
-          status: 429,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
+        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
+    await supabaseAdmin.from("contact_rate_limits").insert({ ip_hash: ipHash });
 
     const { name, email, phone, company, message }: ContactFormRequest = await req.json();
 
@@ -131,9 +132,6 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Processing contact form submission");
 
     // Check monthly email limit (one submission per email per calendar month)
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
