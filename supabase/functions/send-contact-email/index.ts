@@ -132,9 +132,6 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Processing contact form submission");
 
     // Check monthly email limit (one submission per email per calendar month)
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
