@@ -146,7 +146,23 @@ serve(async (req: Request) => {
       status: "requested",
     });
 
-    const finalRedirect = redirectUrl || "https://litaiproductions.lovable.app/reset-password";
+    // Allowlist redirect origins to prevent open-redirect phishing
+    const ALLOWED_REDIRECT_ORIGINS = new Set([
+      "https://litaiproductions.lovable.app",
+      "https://id-preview--42ee5cc1-0dfe-48bb-92a5-7d139a97a55c.lovable.app",
+    ]);
+    const DEFAULT_REDIRECT = "https://litaiproductions.lovable.app/reset-password";
+    let finalRedirect = DEFAULT_REDIRECT;
+    if (redirectUrl && typeof redirectUrl === "string") {
+      try {
+        const parsed = new URL(redirectUrl);
+        if (ALLOWED_REDIRECT_ORIGINS.has(parsed.origin)) {
+          finalRedirect = parsed.toString();
+        }
+      } catch {
+        // invalid URL — keep default
+      }
+    }
 
     // Generate a recovery link via Supabase Admin API (does NOT auto-send email)
     const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
