@@ -64,20 +64,26 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    // Rate limiting by a hash of headers (not storing IP)
-    const userAgent = req.headers.get("user-agent") || "unknown";
-    const rateLimitKey = btoa(userAgent).slice(0, 16);
-    
-    if (isRateLimited(rateLimitKey)) {
-      console.log("Rate limit exceeded");
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Persistent IP-hashed rate limiting
+    const ipHash = await hashIp(getClientIp(req));
+    const windowStart = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
+    const { count: recentCount } = await supabaseAdmin
+      .from("contact_rate_limits")
+      .select("*", { count: "exact", head: true })
+      .eq("ip_hash", ipHash)
+      .gte("created_at", windowStart);
+
+    if ((recentCount ?? 0) >= RATE_LIMIT_MAX) {
       return new Response(
         JSON.stringify({ error: "Too many requests. Please try again later." }),
-        {
-          status: 429,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
+        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
+    await supabaseAdmin.from("contact_rate_limits").insert({ ip_hash: ipHash });
 
     const { name, email, phone, company, message }: ContactFormRequest = await req.json();
 
