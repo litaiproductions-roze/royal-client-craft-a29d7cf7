@@ -538,12 +538,13 @@ function StatCard({
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-background rounded-lg p-4 border border-border">
+    <div className="bg-background rounded-lg p-3 sm:p-4 border border-border">
       <h3 className="text-sm font-semibold mb-3 text-foreground">{title}</h3>
-      {children}
+      <div className="overflow-x-auto">{children}</div>
     </div>
   );
 }
+
 
 function Empty({ children }: { children: React.ReactNode }) {
   return <p className="text-sm text-muted-foreground">{children}</p>;
