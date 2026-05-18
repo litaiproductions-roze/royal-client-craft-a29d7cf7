@@ -157,32 +157,34 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="gradient-royal py-6 px-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+      <header className="gradient-royal py-4 px-4 sm:py-6 sm:px-6">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+            <Link to="/" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors shrink-0">
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <div className="flex items-center gap-3">
-              <Settings className="h-6 w-6 text-primary-foreground" />
-              <h1 className="text-xl font-bold text-primary-foreground">Admin Dashboard</h1>
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <Settings className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground shrink-0" />
+              <h1 className="text-base sm:text-xl font-bold text-primary-foreground truncate">Admin Dashboard</h1>
             </div>
           </div>
           <Button 
             variant="ghost" 
             size="sm" 
             onClick={signOut}
-            className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10"
+            className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 shrink-0"
           >
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
+            <LogOut className="h-4 w-4 sm:mr-2" />
+            <span className="hidden sm:inline">Sign Out</span>
           </Button>
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-6 py-8">
-        {/* Tabs */}
-        <div className="flex flex-wrap gap-4 mb-8 border-b border-border">
+      <div className="max-w-6xl mx-auto px-3 py-4 sm:px-6 sm:py-8">
+        {/* Tabs — horizontally scrollable on mobile */}
+        <div className="mb-6 sm:mb-8 border-b border-border -mx-3 px-3 sm:mx-0 sm:px-0">
+          <div className="flex gap-1 sm:gap-4 overflow-x-auto scrollbar-none snap-x">
+
           <button
             onClick={() => setActiveTab("analytics")}
             className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
