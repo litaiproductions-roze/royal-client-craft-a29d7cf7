@@ -235,12 +235,13 @@ export default function AnalyticsDashboard() {
       </div>
 
       <Tabs defaultValue="traffic" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="traffic">Traffic</TabsTrigger>
-          <TabsTrigger value="links">Link Clicks</TabsTrigger>
-          <TabsTrigger value="security">Security Audit</TabsTrigger>
-          <TabsTrigger value="activity">Live Activity</TabsTrigger>
+        <TabsList className="flex w-full overflow-x-auto sm:grid sm:grid-cols-4 h-auto">
+          <TabsTrigger value="traffic" className="shrink-0 whitespace-nowrap">Traffic</TabsTrigger>
+          <TabsTrigger value="links" className="shrink-0 whitespace-nowrap">Link Clicks</TabsTrigger>
+          <TabsTrigger value="security" className="shrink-0 whitespace-nowrap">Security Audit</TabsTrigger>
+          <TabsTrigger value="activity" className="shrink-0 whitespace-nowrap">Live Activity</TabsTrigger>
         </TabsList>
+
 
         {/* TRAFFIC */}
         <TabsContent value="traffic" className="space-y-6 mt-4">
@@ -537,12 +538,13 @@ function StatCard({
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-background rounded-lg p-4 border border-border">
+    <div className="bg-background rounded-lg p-3 sm:p-4 border border-border">
       <h3 className="text-sm font-semibold mb-3 text-foreground">{title}</h3>
-      {children}
+      <div className="overflow-x-auto">{children}</div>
     </div>
   );
 }
+
 
 function Empty({ children }: { children: React.ReactNode }) {
   return <p className="text-sm text-muted-foreground">{children}</p>;

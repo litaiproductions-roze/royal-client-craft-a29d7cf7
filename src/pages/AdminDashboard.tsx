@@ -157,125 +157,63 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="gradient-royal py-6 px-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+      <header className="gradient-royal py-4 px-4 sm:py-6 sm:px-6">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+            <Link to="/" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors shrink-0">
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <div className="flex items-center gap-3">
-              <Settings className="h-6 w-6 text-primary-foreground" />
-              <h1 className="text-xl font-bold text-primary-foreground">Admin Dashboard</h1>
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <Settings className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground shrink-0" />
+              <h1 className="text-base sm:text-xl font-bold text-primary-foreground truncate">Admin Dashboard</h1>
             </div>
           </div>
           <Button 
             variant="ghost" 
             size="sm" 
             onClick={signOut}
-            className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10"
+            className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 shrink-0"
           >
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
+            <LogOut className="h-4 w-4 sm:mr-2" />
+            <span className="hidden sm:inline">Sign Out</span>
           </Button>
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-6 py-8">
-        {/* Tabs */}
-        <div className="flex flex-wrap gap-4 mb-8 border-b border-border">
-          <button
-            onClick={() => setActiveTab("analytics")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "analytics"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <BarChart3 className="h-4 w-4" />
-            Analytics
-          </button>
-          <button
-            onClick={() => setActiveTab("users")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "users"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <UsersIcon className="h-4 w-4" />
-            Users
-          </button>
-          <button
-            onClick={() => setActiveTab("content")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "content"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <FileText className="h-4 w-4" />
-            About Us Content
-          </button>
-          <button
-            onClick={() => setActiveTab("logo")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "logo"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Image className="h-4 w-4" />
-            Site Logo
-          </button>
-          <button
-            onClick={() => setActiveTab("submissions")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "submissions"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Mail className="h-4 w-4" />
-            Contact Submissions
-          </button>
-          <button
-            onClick={() => setActiveTab("reset-logs")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "reset-logs"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <KeyRound className="h-4 w-4" />
-            Password Resets
-          </button>
-          <button
-            onClick={() => setActiveTab("portfolio")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "portfolio"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Globe className="h-4 w-4" />
-            Portfolio
-          </button>
-          <button
-            onClick={() => setActiveTab("social")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "social"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Share2 className="h-4 w-4" />
-            Social Links
-          </button>
+      <div className="max-w-6xl mx-auto px-3 py-4 sm:px-6 sm:py-8">
+        {/* Tabs — horizontally scrollable on mobile */}
+        <div className="mb-6 sm:mb-8 border-b border-border -mx-3 px-3 sm:mx-0 sm:px-0">
+          <div className="flex gap-1 sm:gap-2 overflow-x-auto scrollbar-none snap-x">
+            {([
+              { id: "analytics", label: "Analytics", Icon: BarChart3 },
+              { id: "users", label: "Users", Icon: UsersIcon },
+              { id: "content", label: "About Us Content", Icon: FileText },
+              { id: "logo", label: "Site Logo", Icon: Image },
+              { id: "submissions", label: "Contact Submissions", Icon: Mail },
+              { id: "reset-logs", label: "Password Resets", Icon: KeyRound },
+              { id: "portfolio", label: "Portfolio", Icon: Globe },
+              { id: "social", label: "Social Links", Icon: Share2 },
+            ] as const).map(({ id, label, Icon }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={`flex items-center gap-2 px-3 sm:px-4 py-3 text-sm font-medium transition-colors shrink-0 whitespace-nowrap snap-start ${
+                  activeTab === id
+                    ? "text-primary border-b-2 border-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
+
 
         {/* Analytics Tab */}
         {activeTab === "analytics" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="h-5 w-5 text-primary" />
               Site Activity & Analytics
@@ -286,7 +224,7 @@ export default function AdminDashboard() {
 
         {/* Users Tab */}
         {activeTab === "users" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <UsersIcon className="h-5 w-5 text-primary" />
               All Users
@@ -299,7 +237,7 @@ export default function AdminDashboard() {
         {activeTab === "content" && (
           <div className="space-y-8">
             {/* Hero Section */}
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
               <h2 className="text-lg font-semibold text-foreground mb-4">Hero Section</h2>
               <div className="space-y-4">
                 <div>
@@ -323,7 +261,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Story Section */}
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
               <h2 className="text-lg font-semibold text-foreground mb-4">Our Story</h2>
               <div className="space-y-4">
                 <div>
@@ -347,7 +285,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Values Section */}
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
               <h2 className="text-lg font-semibold text-foreground mb-4">Core Values</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {["about_mission", "about_vision", "about_passion", "about_excellence"].map((key) => (
@@ -394,7 +332,7 @@ export default function AdminDashboard() {
 
         {/* Logo Tab */}
         {activeTab === "logo" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4">Site Logo</h2>
             <div className="flex flex-col md:flex-row items-start gap-8">
               <div className="bg-muted rounded-xl p-8 flex items-center justify-center">
@@ -440,7 +378,7 @@ export default function AdminDashboard() {
 
         {/* Submissions Tab */}
         {activeTab === "submissions" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
               Contact Form Submissions
@@ -451,7 +389,7 @@ export default function AdminDashboard() {
 
         {/* Password Reset Logs Tab */}
         {activeTab === "reset-logs" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <KeyRound className="h-5 w-5 text-primary" />
               Password Reset Activity
@@ -462,7 +400,7 @@ export default function AdminDashboard() {
 
         {/* Portfolio Tab */}
         {activeTab === "portfolio" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <Globe className="h-5 w-5 text-primary" />
               Manage Portfolio
@@ -473,7 +411,7 @@ export default function AdminDashboard() {
 
         {/* Social Links Tab */}
         {activeTab === "social" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <Share2 className="h-5 w-5 text-primary" />
               Social Media Links
