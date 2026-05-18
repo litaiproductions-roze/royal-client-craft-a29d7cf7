@@ -183,96 +183,33 @@ export default function AdminDashboard() {
       <div className="max-w-6xl mx-auto px-3 py-4 sm:px-6 sm:py-8">
         {/* Tabs — horizontally scrollable on mobile */}
         <div className="mb-6 sm:mb-8 border-b border-border -mx-3 px-3 sm:mx-0 sm:px-0">
-          <div className="flex gap-1 sm:gap-4 overflow-x-auto scrollbar-none snap-x">
+          <div className="flex gap-1 sm:gap-2 overflow-x-auto scrollbar-none snap-x">
+            {([
+              { id: "analytics", label: "Analytics", Icon: BarChart3 },
+              { id: "users", label: "Users", Icon: UsersIcon },
+              { id: "content", label: "About Us Content", Icon: FileText },
+              { id: "logo", label: "Site Logo", Icon: Image },
+              { id: "submissions", label: "Contact Submissions", Icon: Mail },
+              { id: "reset-logs", label: "Password Resets", Icon: KeyRound },
+              { id: "portfolio", label: "Portfolio", Icon: Globe },
+              { id: "social", label: "Social Links", Icon: Share2 },
+            ] as const).map(({ id, label, Icon }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                className={`flex items-center gap-2 px-3 sm:px-4 py-3 text-sm font-medium transition-colors shrink-0 whitespace-nowrap snap-start ${
+                  activeTab === id
+                    ? "text-primary border-b-2 border-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-          <button
-            onClick={() => setActiveTab("analytics")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "analytics"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <BarChart3 className="h-4 w-4" />
-            Analytics
-          </button>
-          <button
-            onClick={() => setActiveTab("users")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "users"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <UsersIcon className="h-4 w-4" />
-            Users
-          </button>
-          <button
-            onClick={() => setActiveTab("content")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "content"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <FileText className="h-4 w-4" />
-            About Us Content
-          </button>
-          <button
-            onClick={() => setActiveTab("logo")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "logo"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Image className="h-4 w-4" />
-            Site Logo
-          </button>
-          <button
-            onClick={() => setActiveTab("submissions")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "submissions"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Mail className="h-4 w-4" />
-            Contact Submissions
-          </button>
-          <button
-            onClick={() => setActiveTab("reset-logs")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "reset-logs"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <KeyRound className="h-4 w-4" />
-            Password Resets
-          </button>
-          <button
-            onClick={() => setActiveTab("portfolio")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "portfolio"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Globe className="h-4 w-4" />
-            Portfolio
-          </button>
-          <button
-            onClick={() => setActiveTab("social")}
-            className={`flex items-center gap-2 px-4 py-3 font-medium transition-colors ${
-              activeTab === "social"
-                ? "text-primary border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Share2 className="h-4 w-4" />
-            Social Links
-          </button>
         </div>
 
         {/* Analytics Tab */}
