@@ -213,7 +213,7 @@ export default function AdminDashboard() {
 
         {/* Analytics Tab */}
         {activeTab === "analytics" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <BarChart3 className="h-5 w-5 text-primary" />
               Site Activity & Analytics
@@ -224,7 +224,7 @@ export default function AdminDashboard() {
 
         {/* Users Tab */}
         {activeTab === "users" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <UsersIcon className="h-5 w-5 text-primary" />
               All Users
@@ -237,7 +237,7 @@ export default function AdminDashboard() {
         {activeTab === "content" && (
           <div className="space-y-8">
             {/* Hero Section */}
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
               <h2 className="text-lg font-semibold text-foreground mb-4">Hero Section</h2>
               <div className="space-y-4">
                 <div>
@@ -261,7 +261,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Story Section */}
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
               <h2 className="text-lg font-semibold text-foreground mb-4">Our Story</h2>
               <div className="space-y-4">
                 <div>
@@ -285,7 +285,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Values Section */}
-            <div className="bg-card rounded-xl p-6 border border-border">
+            <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
               <h2 className="text-lg font-semibold text-foreground mb-4">Core Values</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {["about_mission", "about_vision", "about_passion", "about_excellence"].map((key) => (
@@ -332,7 +332,7 @@ export default function AdminDashboard() {
 
         {/* Logo Tab */}
         {activeTab === "logo" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4">Site Logo</h2>
             <div className="flex flex-col md:flex-row items-start gap-8">
               <div className="bg-muted rounded-xl p-8 flex items-center justify-center">
@@ -378,7 +378,7 @@ export default function AdminDashboard() {
 
         {/* Submissions Tab */}
         {activeTab === "submissions" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <Mail className="h-5 w-5 text-primary" />
               Contact Form Submissions
@@ -389,7 +389,7 @@ export default function AdminDashboard() {
 
         {/* Password Reset Logs Tab */}
         {activeTab === "reset-logs" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <KeyRound className="h-5 w-5 text-primary" />
               Password Reset Activity
@@ -400,7 +400,7 @@ export default function AdminDashboard() {
 
         {/* Portfolio Tab */}
         {activeTab === "portfolio" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <Globe className="h-5 w-5 text-primary" />
               Manage Portfolio
@@ -411,7 +411,7 @@ export default function AdminDashboard() {
 
         {/* Social Links Tab */}
         {activeTab === "social" && (
-          <div className="bg-card rounded-xl p-6 border border-border">
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
             <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
               <Share2 className="h-5 w-5 text-primary" />
               Social Media Links
