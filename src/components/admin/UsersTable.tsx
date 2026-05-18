@@ -160,15 +160,15 @@ export default function UsersTable() {
                   </TableCell>
                   <TableCell className="text-right">
                     {canManage ? (
-                      <div className="flex justify-end gap-2">
+                      <div className="flex justify-end gap-2 flex-wrap">
                         {restricted ? (
                           <Button
                             size="sm"
                             variant="outline"
                             onClick={() => setPending({ type: "unrestrict", user: u })}
                           >
-                            <ShieldOff className="h-3.5 w-3.5 mr-1" />
-                            Unrestrict
+                            <ShieldOff className="h-3.5 w-3.5 sm:mr-1" />
+                            <span className="hidden sm:inline">Unrestrict</span>
                           </Button>
                         ) : (
                           <Button
@@ -176,8 +176,8 @@ export default function UsersTable() {
                             variant="outline"
                             onClick={() => setPending({ type: "restrict", user: u })}
                           >
-                            <Ban className="h-3.5 w-3.5 mr-1" />
-                            Restrict
+                            <Ban className="h-3.5 w-3.5 sm:mr-1" />
+                            <span className="hidden sm:inline">Restrict</span>
                           </Button>
                         )}
                         <Button
@@ -185,16 +185,17 @@ export default function UsersTable() {
                           variant="destructive"
                           onClick={() => setPending({ type: "delete", user: u })}
                         >
-                          <Trash2 className="h-3.5 w-3.5 mr-1" />
-                          Delete
+                          <Trash2 className="h-3.5 w-3.5 sm:mr-1" />
+                          <span className="hidden sm:inline">Delete</span>
                         </Button>
                       </div>
                     ) : (
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-xs text-muted-foreground whitespace-nowrap">
                         {isProtected ? "Primary admin" : isSelf ? "You" : "—"}
                       </span>
                     )}
                   </TableCell>
+
                 </TableRow>
               );
             })}
