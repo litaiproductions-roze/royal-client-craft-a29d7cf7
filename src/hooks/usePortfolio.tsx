@@ -37,12 +37,21 @@ export function usePortfolio() {
   const addItem = async (title: string, url: string, screenshotFile?: File) => {
     let screenshot_url: string | null = null;
 
+    const ALLOWED_MIME = ["image/png", "image/jpeg", "image/webp", "image/gif"];
+    const ALLOWED_EXT = ["png", "jpg", "jpeg", "webp", "gif"];
+
     if (screenshotFile) {
-      const ext = screenshotFile.name.split(".").pop();
+      const ext = (screenshotFile.name.split(".").pop() || "").toLowerCase();
+      if (!ALLOWED_MIME.includes(screenshotFile.type) || !ALLOWED_EXT.includes(ext)) {
+        throw new Error("Invalid image type. Use PNG, JPG, WEBP, or GIF.");
+      }
+      if (screenshotFile.size > 5 * 1024 * 1024) {
+        throw new Error("Image too large (max 5MB).");
+      }
       const path = `portfolio/${Date.now()}.${ext}`;
       const { error: uploadError } = await supabase.storage
         .from("site-assets")
-        .upload(path, screenshotFile);
+        .upload(path, screenshotFile, { contentType: screenshotFile.type });
       if (uploadError) throw uploadError;
 
       const { data: urlData } = supabase.storage
