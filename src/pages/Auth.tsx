@@ -117,7 +117,9 @@ export default function Auth() {
       if (error) {
         toast({
           title: "Error",
-          description: error.message,
+          description: isLogin
+            ? "Sign-in failed. Check your email and password and try again."
+            : "Sign-up failed. Please try again or use a different email.",
           variant: "destructive",
         });
       } else if (!isLogin) {

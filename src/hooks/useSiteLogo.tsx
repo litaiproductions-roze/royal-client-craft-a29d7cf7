@@ -26,14 +26,22 @@ export function useSiteLogo() {
   };
 
   const updateLogo = async (file: File) => {
-    const fileExt = file.name.split(".").pop();
+    const ALLOWED_MIME = ["image/png", "image/jpeg", "image/webp", "image/gif"];
+    const ALLOWED_EXT = ["png", "jpg", "jpeg", "webp", "gif"];
+    const fileExt = (file.name.split(".").pop() || "").toLowerCase();
+    if (!ALLOWED_MIME.includes(file.type) || !ALLOWED_EXT.includes(fileExt)) {
+      throw new Error("Invalid image type. Use PNG, JPG, WEBP, or GIF.");
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      throw new Error("Image too large (max 5MB).");
+    }
     const fileName = `logo.${fileExt}`;
     const filePath = `${fileName}`;
 
     // Upload file to storage
     const { error: uploadError } = await supabase.storage
       .from("site-assets")
-      .upload(filePath, file, { upsert: true });
+      .upload(filePath, file, { upsert: true, contentType: file.type });
 
     if (uploadError) {
       throw uploadError;
