@@ -88,10 +88,10 @@ export function Footer() {
             })}
           </div>
           <div className="space-y-2 text-center">
-            <p className="text-xs text-white/75">
+            <p className="text-xs text-white/90">
               © {new Date().getFullYear()} LIT Productions. All rights reserved.
             </p>
-            <p className="text-xs text-white/65">
+            <p className="text-xs text-white/85">
               We do not collect IP addresses or sell your data. Your privacy is protected.
             </p>
           </div>
