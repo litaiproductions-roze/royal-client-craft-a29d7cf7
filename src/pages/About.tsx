@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Target, Eye, Heart, Award, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { SEO } from "@/components/SEO";
 
 const valueIcons = {
   about_mission: Target,
@@ -27,12 +28,12 @@ export default function About() {
 
   return (
     <>
-      {/* SEO */}
-      <title>About Us | LIT Productions - Our Story & Mission</title>
-      <meta
-        name="description"
-        content="Learn about LIT Productions, a premium web design studio dedicated to creating exceptional digital experiences for individuals and businesses."
+      <SEO
+        title="About LIT Productions — Our Story & Mission"
+        description="Learn about LIT Productions, a premium web design studio dedicated to creating exceptional digital experiences for individuals and businesses."
+        path="/about"
       />
+
 
       {/* Hero Section */}
       <section className="gradient-royal py-20 px-6">

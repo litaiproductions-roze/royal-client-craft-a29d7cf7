@@ -2,17 +2,26 @@ import { Loader2, Globe, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { usePortfolio } from "@/hooks/usePortfolio";
+import { SEO } from "@/components/SEO";
 
 export default function Portfolio() {
   const { items, loading } = usePortfolio();
 
   return (
     <>
-      <title>Portfolio | LIT Productions - Our Work</title>
-      <meta
-        name="description"
-        content="Browse the portfolio of websites designed and developed by LIT Productions. See our latest work and projects."
+      <SEO
+        title="Portfolio | LIT Productions — Our Work"
+        description="Browse the portfolio of websites designed and developed by LIT Productions. See our latest custom web projects."
+        path="/portfolio"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "LIT Productions Portfolio",
+          url: "https://litaiproductions.lovable.app/portfolio",
+          description: "Showcase of custom websites designed and built by LIT Productions.",
+        }}
       />
+
 
       {/* Hero Section */}
       <section className="gradient-royal py-16 px-6">
