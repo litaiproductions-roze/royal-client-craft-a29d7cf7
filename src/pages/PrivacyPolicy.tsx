@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Shield, Lock, Eye, Trash2, Mail } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 export default function PrivacyPolicy() {
   return (
     <>
-      <title>Privacy Policy | LIT Productions</title>
-      <meta name="description" content="LIT Productions privacy policy - how we protect your data and respect your privacy." />
+      <SEO
+        title="Privacy Policy | LIT Productions"
+        description="LIT Productions privacy policy — how we protect your data and respect your privacy."
+        path="/privacy"
+      />
+
 
       {/* Header */}
       <section className="gradient-royal py-16 px-6">

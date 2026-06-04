@@ -48,7 +48,7 @@ export default function Portfolio() {
           ) : items.length === 0 ? (
             <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card px-8 py-20 text-center shadow-card">
               <Globe className="mx-auto mb-4 h-16 w-16 text-muted-foreground/60" />
-              <h3 className="mb-2 text-xl font-semibold text-foreground">Portfolio coming soon</h3>
+              <h2 className="mb-2 text-xl font-semibold text-foreground">Portfolio coming soon</h2>
               <p className="text-base text-muted-foreground">
                 We're preparing our showcase. Check back soon!
               </p>
@@ -75,9 +75,9 @@ export default function Portfolio() {
                     )}
                   </div>
                   <CardContent className="p-5">
-                    <h3 className="text-lg font-semibold text-foreground mb-3">
+                    <h2 className="text-lg font-semibold text-foreground mb-3">
                       {item.title}
-                    </h3>
+                    </h2>
                     <Button asChild variant="hero" size="sm" className="w-full">
                       <a href={item.url} target="_blank" rel="noopener noreferrer">
                         Visit Website
