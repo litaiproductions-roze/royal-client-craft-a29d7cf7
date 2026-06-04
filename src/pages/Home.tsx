@@ -48,6 +48,10 @@ export default function Home() {
             <img
               src={logoUrl}
               alt="LIT Productions Logo"
+              width={160}
+              height={160}
+              fetchPriority="high"
+              decoding="async"
               className="w-32 h-32 md:w-40 md:h-40 mx-auto animate-float"
             />
           </div>
