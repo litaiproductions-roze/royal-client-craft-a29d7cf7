@@ -1,0 +1,14 @@
+# LIT Productions
+
+> LIT Productions is a premium web design and development studio that crafts custom websites for individuals and businesses.
+
+## Pages
+
+- [Home](/): Overview of LIT Productions' premium web design services.
+- [About](/about): Our story, mission, and the values that drive our work.
+- [Portfolio](/portfolio): Showcase of websites we've designed and built.
+- [Contact](/contact): Start a project or get in touch with our team.
+
+## Optional
+
+- [Privacy Policy](/privacy): How we protect data and respect privacy.

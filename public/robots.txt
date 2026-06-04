@@ -1,3 +1,5 @@
+Sitemap: https://litaiproductions.lovable.app/sitemap.xml
+
 # Allow legitimate search engines
 User-agent: Googlebot
 Allow: /

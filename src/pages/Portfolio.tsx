@@ -2,17 +2,26 @@ import { Loader2, Globe, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { usePortfolio } from "@/hooks/usePortfolio";
+import { SEO } from "@/components/SEO";
 
 export default function Portfolio() {
   const { items, loading } = usePortfolio();
 
   return (
     <>
-      <title>Portfolio | LIT Productions - Our Work</title>
-      <meta
-        name="description"
-        content="Browse the portfolio of websites designed and developed by LIT Productions. See our latest work and projects."
+      <SEO
+        title="Portfolio | LIT Productions — Our Work"
+        description="Browse the portfolio of websites designed and developed by LIT Productions. See our latest custom web projects."
+        path="/portfolio"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "LIT Productions Portfolio",
+          url: "https://litaiproductions.lovable.app/portfolio",
+          description: "Showcase of custom websites designed and built by LIT Productions.",
+        }}
       />
+
 
       {/* Hero Section */}
       <section className="gradient-royal py-16 px-6">
@@ -39,7 +48,7 @@ export default function Portfolio() {
           ) : items.length === 0 ? (
             <div className="mx-auto max-w-2xl rounded-3xl border border-border bg-card px-8 py-20 text-center shadow-card">
               <Globe className="mx-auto mb-4 h-16 w-16 text-muted-foreground/60" />
-              <h3 className="mb-2 text-xl font-semibold text-foreground">Portfolio coming soon</h3>
+              <h2 className="mb-2 text-xl font-semibold text-foreground">Portfolio coming soon</h2>
               <p className="text-base text-muted-foreground">
                 We're preparing our showcase. Check back soon!
               </p>
@@ -66,9 +75,9 @@ export default function Portfolio() {
                     )}
                   </div>
                   <CardContent className="p-5">
-                    <h3 className="text-lg font-semibold text-foreground mb-3">
+                    <h2 className="text-lg font-semibold text-foreground mb-3">
                       {item.title}
-                    </h3>
+                    </h2>
                     <Button asChild variant="hero" size="sm" className="w-full">
                       <a href={item.url} target="_blank" rel="noopener noreferrer">
                         Visit Website

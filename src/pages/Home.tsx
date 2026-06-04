@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Globe, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSiteLogo } from "@/hooks/useSiteLogo";
+import { SEO } from "@/components/SEO";
 
 const features = [
   {
@@ -26,11 +27,17 @@ export default function Home() {
 
   return (
     <>
-      {/* SEO */}
-      <title>LIT Productions | Premium Custom Website Design & Development</title>
-      <meta
-        name="description"
-        content="LIT Productions creates stunning custom websites for individuals and businesses. Premium web design services that elevate your digital presence."
+      <SEO
+        title="LIT Productions — Premium Custom Web Design"
+        description="LIT Productions designs stunning custom websites for individuals and businesses. Premium web design and development that elevates your brand."
+        path="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "LIT Productions",
+          url: "https://litaiproductions.lovable.app",
+          description: "Premium custom web design and development studio.",
+        }}
       />
 
       {/* Hero Section */}
@@ -47,7 +54,7 @@ export default function Home() {
 
           {/* Heading */}
           <h1 className="animate-fade-in-delay text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
-            LIT PRODUCTIONS
+            LIT Productions — Premium Web Design &amp; Development
           </h1>
 
           <p className="animate-fade-in-delay text-xl md:text-2xl text-primary-foreground/80 mb-4 font-light">

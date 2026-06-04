@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { SEO } from "@/components/SEO";
 import { z } from "zod";
 
 // Input validation schema
@@ -161,12 +162,18 @@ export default function Contact() {
 
   return (
     <>
-      {/* SEO */}
-      <title>Contact Us | LIT Productions - Start Your Project</title>
-      <meta
-        name="description"
-        content="Get in touch with LIT Productions to discuss your website project. We're ready to bring your vision to life with premium web design."
+      <SEO
+        title="Contact LIT Productions — Start Your Project"
+        description="Get in touch with LIT Productions to discuss your website project. We're ready to bring your vision to life with premium web design."
+        path="/contact"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: "Contact LIT Productions",
+          url: "https://litaiproductions.lovable.app/contact",
+        }}
       />
+
 
       {/* Hero Section */}
       <section className="gradient-royal py-20 px-6">
