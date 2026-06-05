@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, Users, Mail, Settings, Globe, Sun, Moon } from "lucide-react";
+import { Menu, X, Home, Users, Mail, Settings, Globe, Sun, Moon, Briefcase, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { useSiteLogo } from "@/hooks/useSiteLogo";
@@ -8,8 +8,10 @@ import { useTheme } from "@/hooks/useTheme";
 
 const navItems = [
   { name: "Home", path: "/", icon: Home },
-  { name: "About Us", path: "/about", icon: Users },
+  { name: "Services", path: "/services", icon: Briefcase },
   { name: "Portfolio", path: "/portfolio", icon: Globe },
+  { name: "About Us", path: "/about", icon: Users },
+  { name: "Blog", path: "/blog", icon: BookOpen },
   { name: "Contact Us", path: "/contact", icon: Mail },
 ];
 

@@ -1,14 +1,36 @@
-# LIT Productions
+# Lit AI Productions
 
-> LIT Productions is a premium web design and development studio that crafts custom websites for individuals and businesses.
+> Lit AI Productions is a Long Island, NY web design and AI automation agency. We build custom websites, e-commerce stores, AI chatbots and automations, local SEO programs, and Cloudflare-powered hosting for small businesses, creators, and startups across Long Island, New York, and beyond.
 
-## Pages
+## Core Pages
 
-- [Home](/): Overview of LIT Productions' premium web design services.
-- [About](/about): Our story, mission, and the values that drive our work.
-- [Portfolio](/portfolio): Showcase of websites we've designed and built.
-- [Contact](/contact): Start a project or get in touch with our team.
+- [Home](/): Long Island web design and AI automation agency for small businesses.
+- [Services](/services): Full list of web design, AI, SEO, hosting, and custom solutions.
+- [Portfolio](/portfolio): Recent client websites and projects.
+- [About](/about): Our story, team, and approach.
+- [Contact](/contact): Start a project, request a quote, or book a free consultation.
+- [Blog](/blog): Insights on web design, local SEO, and AI automation.
+
+## Services
+
+- [Website Design](/services/website-design): Custom, conversion-focused websites.
+- [Business Websites](/services/business-websites): Local small business websites that rank and convert.
+- [AI Automation](/services/ai-automation): Chatbots, lead capture, and workflow automation.
+- [E-commerce Development](/services/ecommerce-development): Custom online stores built to sell.
+- [Landing Pages](/services/landing-pages): High-converting pages for paid traffic.
+- [SEO Optimization](/services/seo-optimization): Local, technical, and AI search SEO.
+- [Website Maintenance](/services/website-maintenance): Updates, backups, and security.
+- [Cloudflare Hosting & Security](/services/cloudflare-hosting-security): Fast, secure global hosting.
+- [Custom Business Solutions](/services/custom-business-solutions): Custom apps, dashboards, AI tools.
+
+## Locations
+
+- [Long Island, NY](/locations/long-island-ny): Web design and AI for Long Island businesses.
+- [Farmingdale, NY](/locations/farmingdale-ny): Local web design in Farmingdale.
+- [Suffolk County, NY](/locations/suffolk-county-ny): Suffolk County web design and SEO.
+- [Nassau County, NY](/locations/nassau-county-ny): Nassau County web design and SEO.
+- [New York](/locations/new-york): NYC and statewide web design and AI automation.
 
 ## Optional
 
-- [Privacy Policy](/privacy): How we protect data and respect privacy.
+- [Privacy Policy](/privacy): How we handle data and protect your privacy.

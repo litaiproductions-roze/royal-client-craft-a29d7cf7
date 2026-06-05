@@ -2,11 +2,16 @@ import { Link } from "react-router-dom";
 import { FaInstagram, FaXTwitter, FaTiktok } from "react-icons/fa6";
 import logo from "@/assets/logo.png";
 import { useSocialLinks } from "@/hooks/useSocialLinks";
+import { services } from "@/data/services";
+import { locations } from "@/data/locations";
 
-const footerLinks = [
+const companyLinks = [
   { name: "Home", path: "/" },
   { name: "About Us", path: "/about" },
-  { name: "Contact Us", path: "/contact" },
+  { name: "Portfolio", path: "/portfolio" },
+  { name: "Services", path: "/services" },
+  { name: "Blog", path: "/blog" },
+  { name: "Contact", path: "/contact" },
   { name: "Privacy Policy", path: "/privacy" },
 ];
 
@@ -22,46 +27,75 @@ export function Footer() {
   return (
     <footer className="gradient-dark text-white md:pl-72">
       <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr_1fr] md:items-start">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="LIT Productions" className="w-10 h-10 object-contain" />
+              <img src={logo} alt="Lit AI Productions" className="w-10 h-10 object-contain" />
               <div>
-                <h3 className="text-lg font-bold text-white">LIT PRODUCTIONS</h3>
-                <p className="text-xs tracking-wider text-white/75">Building Digital Excellence</p>
+                <h3 className="text-base font-bold text-white">LIT AI PRODUCTIONS</h3>
+                <p className="text-xs tracking-wider text-white/75">Web Design & AI Automation</p>
               </div>
             </div>
             <p className="max-w-sm text-sm leading-6 text-white/80">
-              Follow LIT Productions across social media and explore our latest work, updates, and launches.
+              Long Island web design and AI automation for small businesses, creators, and startups.
             </p>
           </div>
 
-          {/* Navigation */}
-          <div className="flex flex-col items-center gap-4">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white">Quick Links</h4>
-            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-              {footerLinks.map((link) => (
-                <li key={link.name}>
+          {/* Services */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">Services</h4>
+            <ul className="space-y-2">
+              {services.map((s) => (
+                <li key={s.slug}>
                   <Link
-                    to={link.path}
-                    className="text-sm font-medium text-white/90 underline-offset-4 transition-colors hover:text-accent hover:underline"
+                    to={`/services/${s.slug}`}
+                    className="text-sm text-white/85 hover:text-accent hover:underline underline-offset-4"
                   >
-                    {link.name}
+                    {s.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="flex flex-col items-center md:items-end gap-2">
-            <p className="text-sm text-white/85">Ready to build something amazing?</p>
+          {/* Locations */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">Locations</h4>
+            <ul className="space-y-2">
+              {locations.map((l) => (
+                <li key={l.slug}>
+                  <Link
+                    to={`/locations/${l.slug}`}
+                    className="text-sm text-white/85 hover:text-accent hover:underline underline-offset-4"
+                  >
+                    {l.region}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">Company</h4>
+            <ul className="space-y-2">
+              {companyLinks.map((c) => (
+                <li key={c.path}>
+                  <Link
+                    to={c.path}
+                    className="text-sm text-white/85 hover:text-accent hover:underline underline-offset-4"
+                  >
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <Link
               to="/contact"
-              className="text-lg font-semibold text-accent underline-offset-4 transition-colors hover:text-accent/80 hover:underline"
+              className="mt-6 inline-block text-base font-semibold text-accent hover:underline underline-offset-4"
             >
-              Get in Touch →
+              Get a Free Consultation →
             </Link>
           </div>
         </div>
@@ -72,7 +106,6 @@ export function Footer() {
             {socialIcons.map(({ key, icon: Icon, label }) => {
               const url = links[key];
               if (!url) return null;
-
               return (
                 <a
                   key={key}
@@ -89,7 +122,7 @@ export function Footer() {
           </div>
           <div className="space-y-2 text-center">
             <p className="text-xs text-white/90">
-              © {new Date().getFullYear()} LIT Productions. All rights reserved.
+              © {new Date().getFullYear()} Lit AI Productions. All rights reserved.
             </p>
             <p className="text-xs text-white/85">
               We do not collect IP addresses or sell your data. Your privacy is protected.
