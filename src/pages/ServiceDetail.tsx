@@ -28,11 +28,11 @@ export default function ServiceDetail() {
             "@type": "Service",
             name: service.name,
             description: service.summary,
-            url: `https://litaiproductions.lovable.app/services/${service.slug}`,
+            url: `https://www.imagineitlit.com/services/${service.slug}`,
             provider: {
               "@type": "Organization",
               name: "Lit AI Productions",
-              url: "https://litaiproductions.lovable.app",
+              url: "https://www.imagineitlit.com",
             },
             areaServed: [
               "Long Island, NY",

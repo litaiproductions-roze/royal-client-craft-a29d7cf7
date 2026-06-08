@@ -20,8 +20,8 @@
   # HSTS - Force HTTPS
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   
-  # Block AI crawlers and scrapers
-  X-Robots-Tag: noai, noimageai, nosnippet
+  # Allow indexing and AI assistants to cite content
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large
   
   # Allow cross-origin resources (needed for external fonts, images, Supabase)
   Cross-Origin-Resource-Policy: cross-origin

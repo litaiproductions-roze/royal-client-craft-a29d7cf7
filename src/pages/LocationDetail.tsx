@@ -26,7 +26,7 @@ export default function LocationDetail() {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             name: "Lit AI Productions",
-            url: `https://litaiproductions.lovable.app/locations/${loc.slug}`,
+            url: `https://www.imagineitlit.com/locations/${loc.slug}`,
             description: loc.description,
             areaServed: loc.region,
             address: {
