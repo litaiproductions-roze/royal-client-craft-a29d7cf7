@@ -98,16 +98,26 @@ const orgSchema = {
     "Web design and AI automation agency for small businesses, creators, and startups.",
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: homeFAQs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function Home() {
   const { logoUrl } = useSiteLogo();
 
   return (
     <>
       <SEO
-        title="Lit AI Productions — Long Island Web Design & AI Automation Agency"
+        title="Lit AI Productions — Long Island Web Design & AI"
         description="Lit AI Productions is a Long Island, NY web design and AI automation agency. Custom websites, AI tools, local SEO, and Cloudflare hosting for small businesses."
         path="/"
-        jsonLd={[orgSchema, localBusinessSchema]}
+        jsonLd={[orgSchema, localBusinessSchema, faqSchema]}
       />
 
       {/* Hero */}
@@ -209,7 +219,7 @@ export default function Home() {
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3">{s.summary}</p>
                 <span className="inline-flex items-center text-sm font-semibold text-primary">
-                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                  View {s.name} details <ArrowRight className="ml-1 h-4 w-4" />
                 </span>
               </Link>
             ))}
