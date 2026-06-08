@@ -104,10 +104,10 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Lit AI Productions — Long Island Web Design & AI Automation Agency"
+        title="Lit AI Productions — Long Island Web Design & AI"
         description="Lit AI Productions is a Long Island, NY web design and AI automation agency. Custom websites, AI tools, local SEO, and Cloudflare hosting for small businesses."
         path="/"
-        jsonLd={[orgSchema, localBusinessSchema]}
+        jsonLd={[orgSchema, localBusinessSchema, faqSchema]}
       />
 
       {/* Hero */}
