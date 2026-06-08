@@ -170,7 +170,7 @@ export default function Contact() {
           "@context": "https://schema.org",
           "@type": "ContactPage",
           name: "Contact LIT Productions",
-          url: "https://litaiproductions.lovable.app/contact",
+          url: "https://www.imagineitlit.com/contact",
         }}
       />
 

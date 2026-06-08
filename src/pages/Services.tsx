@@ -18,7 +18,7 @@ export default function ServicesHub() {
           "@type": "Service",
           name: s.name,
           description: s.summary,
-          url: `https://litaiproductions.lovable.app/services/${s.slug}`,
+          url: `https://www.imagineitlit.com/services/${s.slug}`,
           provider: { "@type": "Organization", name: "Lit AI Productions" },
         }))}
       />

@@ -7,7 +7,7 @@ export interface Crumb {
   path: string;
 }
 
-const SITE_URL = "https://litaiproductions.lovable.app";
+const SITE_URL = "https://www.imagineitlit.com";
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   const trail = [{ name: "Home", path: "/" }, ...items];

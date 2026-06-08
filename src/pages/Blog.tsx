@@ -14,7 +14,7 @@ export default function Blog() {
           "@context": "https://schema.org",
           "@type": "Blog",
           name: "Lit AI Productions Blog",
-          url: "https://litaiproductions.lovable.app/blog",
+          url: "https://www.imagineitlit.com/blog",
           description:
             "Insights on web design, local SEO, and AI automation for small businesses.",
         }}

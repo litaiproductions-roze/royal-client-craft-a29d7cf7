@@ -67,10 +67,10 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "Lit AI Productions",
-  url: "https://litaiproductions.lovable.app",
+  url: "https://www.imagineitlit.com",
   description:
     "Lit AI Productions is a Long Island, NY web design and AI automation agency building custom websites, AI tools, and local SEO programs for small businesses.",
-  image: "https://litaiproductions.lovable.app/og-image.png",
+  image: "https://www.imagineitlit.com/og-image.png",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Farmingdale",
@@ -93,7 +93,7 @@ const orgSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Lit AI Productions",
-  url: "https://litaiproductions.lovable.app",
+  url: "https://www.imagineitlit.com",
   description:
     "Web design and AI automation agency for small businesses, creators, and startups.",
 };
@@ -114,9 +114,10 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Lit AI Productions — Long Island Web Design & AI"
-        description="Lit AI Productions is a Long Island, NY web design and AI automation agency. Custom websites, AI tools, local SEO, and Cloudflare hosting for small businesses."
+        title="Lit AI Productions | AI-Powered Website Design & Development"
+        description="Lit AI Productions creates high-performance AI-powered websites for businesses. Custom website design, SEO optimization, Cloudflare hosting, and business automation solutions."
         path="/"
+        keywords="AI website builder, website design agency, small business website design, AI web development, custom website design, Long Island website design, website design New York, Cloudflare website hosting, AI business solutions"
         jsonLd={[orgSchema, localBusinessSchema, faqSchema]}
       />
 
