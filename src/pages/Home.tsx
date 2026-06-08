@@ -98,6 +98,16 @@ const orgSchema = {
     "Web design and AI automation agency for small businesses, creators, and startups.",
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: homeFAQs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function Home() {
   const { logoUrl } = useSiteLogo();
 
