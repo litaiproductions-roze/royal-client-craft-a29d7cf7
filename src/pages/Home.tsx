@@ -209,7 +209,7 @@ export default function Home() {
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3">{s.summary}</p>
                 <span className="inline-flex items-center text-sm font-semibold text-primary">
-                  Learn more <ArrowRight className="ml-1 h-4 w-4" />
+                  View {s.name} details <ArrowRight className="ml-1 h-4 w-4" />
                 </span>
               </Link>
             ))}
