@@ -17,7 +17,7 @@ export default function Portfolio() {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "LIT Productions Portfolio",
-          url: "https://litaiproductions.lovable.app/portfolio",
+          url: "https://www.imagineitlit.com/portfolio",
           description: "Showcase of custom websites designed and built by LIT Productions.",
         }}
       />
