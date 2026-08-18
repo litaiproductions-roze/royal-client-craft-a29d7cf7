@@ -170,7 +170,7 @@ const RECOMMENDATIONS: Record<string, { title: string; detail: string; service: 
     title: "Centralize your business data",
     detail:
       "Scattered spreadsheets block automation. A single connected system for customers and jobs unlocks everything else.",
-    service: "/services/custom-business-tools",
+    service: "/services/custom-business-solutions",
   },
   website: {
     title: "Rebuild your website to convert",
@@ -182,7 +182,7 @@ const RECOMMENDATIONS: Record<string, { title: string; detail: string; service: 
     title: "Turn on AI-assisted content and SEO",
     detail:
       "Consistent, keyword-focused content built with AI support keeps you visible on Google and in AI search results.",
-    service: "/services/seo",
+    service: "/services/seo-optimization",
   },
   ai_usage: {
     title: "Create a practical AI game plan",
@@ -194,7 +194,7 @@ const RECOMMENDATIONS: Record<string, { title: string; detail: string; service: 
     title: "Set up automated reporting",
     detail:
       "Live dashboards showing traffic, leads, and revenue mean decisions stop being guesswork.",
-    service: "/services/custom-business-tools",
+    service: "/services/custom-business-solutions",
   },
 };
 
@@ -254,7 +254,7 @@ export function computeResult(answers: Record<string, number>): AssessmentResult
       title: "Build custom AI tools around your workflow",
       detail:
         "You've handled the fundamentals. Purpose-built internal tools and AI agents are the next step-change for a business at your level.",
-      service: "/services/custom-business-tools",
+      service: "/services/custom-business-solutions",
     });
   }
 
