@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_assessment_leads: {
+        Row: {
+          admin_notes: string | null
+          answers: Json
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          industry: string | null
+          name: string
+          phone: string | null
+          recommendations: Json
+          score: number
+          status: string
+          team_size: string | null
+          tier: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          answers?: Json
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          industry?: string | null
+          name: string
+          phone?: string | null
+          recommendations?: Json
+          score?: number
+          status?: string
+          team_size?: string | null
+          tier?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          answers?: Json
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          industry?: string | null
+          name?: string
+          phone?: string | null
+          recommendations?: Json
+          score?: number
+          status?: string
+          team_size?: string | null
+          tier?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       analytics_events: {
         Row: {
           created_at: string
