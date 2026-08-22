@@ -22,6 +22,7 @@ import {
   Globe,
   Share2,
   BarChart3,
+  Sparkles,
   Users as UsersIcon
 } from "lucide-react";
 import PortfolioManager from "@/components/admin/PortfolioManager";
@@ -30,6 +31,7 @@ import PasswordResetLogsTable from "@/components/admin/PasswordResetLogsTable";
 import SocialLinksManager from "@/components/admin/SocialLinksManager";
 import AnalyticsDashboard from "@/components/admin/AnalyticsDashboard";
 import UsersTable from "@/components/admin/UsersTable";
+import AssessmentLeadsTable from "@/components/admin/AssessmentLeadsTable";
 import { Link } from "react-router-dom";
 
 export default function AdminDashboard() {
@@ -38,7 +40,7 @@ export default function AdminDashboard() {
   const { logoUrl, updateLogo } = useSiteLogo();
   const { toast } = useToast();
   
-  const [activeTab, setActiveTab] = useState<"analytics" | "users" | "content" | "logo" | "submissions" | "reset-logs" | "portfolio" | "social">("analytics");
+  const [activeTab, setActiveTab] = useState<"analytics" | "users" | "content" | "logo" | "submissions" | "assessments" | "reset-logs" | "portfolio" | "social">("analytics");
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -190,6 +192,7 @@ export default function AdminDashboard() {
               { id: "content", label: "About Us Content", Icon: FileText },
               { id: "logo", label: "Site Logo", Icon: Image },
               { id: "submissions", label: "Contact Submissions", Icon: Mail },
+              { id: "assessments", label: "AI Assessments", Icon: Sparkles },
               { id: "reset-logs", label: "Password Resets", Icon: KeyRound },
               { id: "portfolio", label: "Portfolio", Icon: Globe },
               { id: "social", label: "Social Links", Icon: Share2 },
@@ -219,6 +222,17 @@ export default function AdminDashboard() {
               Site Activity & Analytics
             </h2>
             <AnalyticsDashboard />
+          </div>
+        )}
+
+        {/* AI Assessments Tab */}
+        {activeTab === "assessments" && (
+          <div className="bg-card rounded-xl p-4 sm:p-6 border border-border">
+            <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-primary" />
+              AI Readiness Assessment Leads
+            </h2>
+            <AssessmentLeadsTable />
           </div>
         )}
 

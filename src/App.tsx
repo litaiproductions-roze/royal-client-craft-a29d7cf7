@@ -18,6 +18,7 @@ import ServicesHub from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
 import LocationDetail from "./pages/LocationDetail";
 import Blog from "./pages/Blog";
+import AIAssessment from "./pages/AIAssessment";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { PageTransition } from "./components/PageTransition";
 import { AnalyticsTracker } from "./components/AnalyticsTracker";
@@ -44,6 +45,7 @@ const App = () => (
                 <Route path="/services/:slug" element={<ServiceDetail />} />
                 <Route path="/locations/:slug" element={<LocationDetail />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/ai-assessment" element={<AIAssessment />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/admin" element={<AdminDashboard />} />
