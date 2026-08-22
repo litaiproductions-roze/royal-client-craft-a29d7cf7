@@ -6,6 +6,7 @@
 
 - [Home](/): Long Island web design and AI automation agency for small businesses.
 - [Services](/services): Full list of web design, AI, SEO, hosting, and custom solutions.
+- [AI Readiness Assessment](/ai-assessment): Free 2-minute quiz that scores how ready a business is for AI and automation, with personalized recommendations.
 - [Portfolio](/portfolio): Recent client websites and projects.
 - [About](/about): Our story, team, and approach.
 - [Contact](/contact): Start a project, request a quote, or book a free consultation.
